@@ -1,0 +1,19 @@
+from openenv import OpenEnv
+import numpy as np
+
+# This links your logic to their system
+def run_inference(env):
+    state = env.reset()
+    # Simple navigation logic
+    ax, ay = state['agent']
+    gx, gy = [4, 4] # Goal position
+    
+    if ax < gx: return "right"
+    elif ay < gy: return "up"
+    elif ax > gx: return "left"
+    else: return "down"
+FROM python:3.9-slim
+RUN pip install numpy openenv
+COPY . /app
+WORKDIR /app
+CMD ["python", "inference.py"]
