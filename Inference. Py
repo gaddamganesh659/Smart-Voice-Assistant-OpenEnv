@@ -1,0 +1,29 @@
+import numpy as np
+
+class SmartBlindAssistant:
+    def __init__(self):
+        self.agent_pos = [0, 0]
+        self.goal_pos = [4, 4]
+
+    def reset(self):
+        self.agent_pos = [0, 0]
+        # ఇది ముఖ్యం: సిస్టమ్ ఒక డిక్షనరీని ఆశిస్తుంది
+        return {"agent": self.agent_pos, "goal": self.goal_pos}
+
+    def step(self, action):
+        if action == "up": self.agent_pos[1] += 1
+        elif action == "down": self.agent_pos[1] -= 1
+        elif action == "left": self.agent_pos[0] -= 1
+        elif action == "right": self.agent_pos[0] += 1
+        
+        done = self.agent_pos == self.goal_pos
+        reward = 100 if done else -1
+        return {"agent": self.agent_pos}, reward, done, {}
+
+# ఈ ఫంక్షన్ పేరు ఖచ్చితంగా ఇలాగే ఉండాలి
+def run_inference():
+    env = SmartBlindAssistant()
+    return env.reset()
+
+if __name__ == "__main__":
+    run_inference()
